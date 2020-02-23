@@ -1,100 +1,97 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout')
 
-        <title>Laravel</title>
+@section('content')
+<div class="container-fluid mt-3">
+    <div class="col-lg-8 text-center m-auto">
+        <div class="col-lg-5 col-md-5 m-auto">
+            <h1>SecuApp</h1>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-7 ml-auto mt-2">
+        <h3>Connexion</h3>
+        <form action="{{ route('login') }}" method="post" class="form-inline row">
+            {{ csrf_field() }}
+            <div class="col-4 m-auto">
+                <input type="text" name="lgusername" id="lgusername" class="form-control" placeholder="Nom d'utilisater">
+            </div>
+            <div class="col-4 m-auto">
+                <input type="password" name="lgpassword" id="lgpassword" class="form-control" placeholder="Mot de passe">
+            </div>
+            <div class="col-3 m-auto">
+                <button type="submit" class="btn btn-success">Connexion</button>
+            </div>
+        </form>
+    </div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+    <div class="col-lg-6 col-md-7 ml-auto mt-3">
+        <h3>Inscription</h3>
+        <form action="{{ route('signup') }}" method="post" onsubmit="return checkPasswords()">
+            {{ csrf_field() }}
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="name" class="form-label">Nom</label>
                 </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="text" name="name" id="name" class="form-control" autocomplete="off" required>
                 </div>
             </div>
-        </div>
-    </body>
-</html>
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="surname" class="form-label">Pr&eacute;nom</label>
+                </div>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="text" name="surname" id="surname" class="form-control" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="matricule" class="form-label">Matricule</label>
+                </div>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="text" name="matricule" id="matricule" class="form-control" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="email" class="form-label">Email</label>
+                </div>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="email" name="email" id="email" class="form-control" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                </div>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="text" name="username" id="username" class="form-control" autocomplete="off" required>
+                </div>
+            </div>
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="password" class="form-label">Mot de passe</label>
+                </div>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+            </div>
+            <div class="input-group row m-1">
+                <div class="col-lg-4 col-md-4 m-auto">
+                    <label for="confirm" class="form-label">Confirmation</label>
+                </div>
+                <div class="col-lg-7 col-md-7 m-auto">
+                    <input type="password" name="confirm" id="confirm" class="form-control" required>
+                </div>
+            </div>
+            <div class="input-group row m-1">
+                <div class="col-6 m-auto">
+                    <button type="reset" class="w-100 btn btn-danger">Annuler</button>
+                </div>
+                <div class="col-6 m-auto">
+                    <button type="submit" class="w-100 btn btn-success">Je m'inscris</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

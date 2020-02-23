@@ -13,4 +13,14 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+Route::post('/signup', 'AuthController@signup')->name('signup');
+
+Route::post('/login', 'AuthController@signin')->name('login');
+
+Route::group(['middleware'=>'auth'], function () {
+    Route::resource('user', 'UserController');
+
+    Route::get('/signout', 'AuthController@signout')->name('signout');
 });
