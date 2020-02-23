@@ -20,9 +20,9 @@
         </div>
         <div class="row">
             <div class="col-4">
-                <ul>
+                <ul class="list-group">
                     @foreach ($users as $user)
-                        <li>{{ $user->name." ".$user->surname }} </li>
+                        <li class="list-group-item list-group-item-action">{{ $user->name." ".$user->surname }} </li>
                     @endforeach
                 </ul>
             </div>
